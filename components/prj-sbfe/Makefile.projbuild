@@ -1,5 +1,13 @@
 
 
+PRJ_SBFE_CMPT:=$(COMPONENT_PATH)
+PRJ_SBFE_KEY_DIR=$(PRJ_SBFE_CMPT)/keys
+
+
+SBFE_DIR?=
+$(eval $(call xdc-help-var-add,SBFE_DIR,Additional Directory to find device SBFE data ))
+SBFE_DEV_KEYS_DIR:=$(PRJ_SBFE_KEY_DIR) $(SBFE_DIR) $(SBFE_DEV_KEYS_DIR)
+
 # Before export, the offset needs to be obtained
 sbfe-export : partition_table_get_info
 
