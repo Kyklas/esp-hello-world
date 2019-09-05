@@ -20,5 +20,9 @@ else
 export IDF_PATH := $(realpath ./esp-idf)
 endif
 
+COMPONENT_DIRS := $(IDF_PATH)/components 
+COMPONENT_DIRS += $(CURDIR)/components $(CURDIR)/main
+COMPONENT_DIRS += $(CURDIR)/components-esp-sbfe
+
 include $(IDF_PATH)/make/project.mk
 

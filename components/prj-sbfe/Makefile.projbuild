@@ -1,0 +1,19 @@
+
+
+# Before export, the offset needs to be obtained
+sbfe-export : partition_table_get_info
+
+$(eval $(call sbfe-declare-binary,BL,$(BOOTLOADER_BIN),$(BOOTLOADER_OFFSET), 1, 1))
+$(eval $(call sbfe-declare-binary,PT,$(PARTITION_TABLE_BIN),$(PARTITION_TABLE_OFFSET), 1))
+# Need to pass $$(APP_OFFSET) to account for the expansion of variable
+$(eval $(call sbfe-declare-binary,APP,$(APP_BIN),$$(APP_OFFSET), 1))
+
+
+
+# Flashing bootloader at the end
+$(eval $(call sbfe-declare-flash,fw,PT APP BL))
+$(eval $(call help-add,sbfe-flash-fw,Flash firmware to device (SBFE) ))
+
+
+
+$(eval $(call help-space))
