@@ -18,10 +18,31 @@ $(eval $(call sbfe-declare-binary,APP,$(APP_BIN),$$(APP_OFFSET), 1))
 
 
 
+STORAGE_BIN := $(BUILD_DIR_BASE)/$(notdir $(PRJ_SBFE_CMPT))/storage.bin 
+
+
+partition_table_get_storage_info: $(PARTITION_TABLE_BIN)
+	$(eval PT_STORAGE_OFFSET:=$(shell $(GET_PART_INFO) --partition-table-file $(PARTITION_TABLE_BIN) \
+							--partition-table-offset $(PARTITION_TABLE_OFFSET) \
+							get_partition_info --partition-name storage --info offset))
+	$(eval PT_STORAGE_SIZE:=$(shell $(GET_PART_INFO) --partition-table-file $(PARTITION_TABLE_BIN) \
+							--partition-table-offset $(PARTITION_TABLE_OFFSET) \
+							get_partition_info --partition-name storage --info size))
+
+sbfe-export : partition_table_get_storage_info 
+
+$(eval $(call sbfe-declare-binary,STORAGE,$(STORAGE_BIN),$$(PT_STORAGE_OFFSET),1))
+
+.INTERMEDIATE: $(STORAGE_BIN)
+
+$(STORAGE_BIN):
+	printf "ESP32 SBFE Flash Encryption Hello World\0" > $@
+
 # Flashing bootloader at the end
 $(eval $(call sbfe-declare-flash,fw,PT APP BL))
 $(eval $(call help-add,sbfe-flash-fw,Flash firmware to device (SBFE) ))
 
+$(eval $(call sbfe-declare-flash,all,PT APP STORAGE BL))
 
 
 $(eval $(call help-space))

@@ -3,3 +3,8 @@ CONFIG_ESPTOOLPY_BAUD=230400
 CONFIG_ESPTOOLPY_AFTER_RESET=
 CONFIG_ESPTOOLPY_AFTER_NORESET=y
 CONFIG_ESPTOOLPY_AFTER="no_reset"
+
+# This example uses an extra partition to demonstrate encrypted/non-encrypted reads/writes.
+CONFIG_PARTITION_TABLE_CUSTOM=y
+CONFIG_PARTITION_TABLE_CUSTOM_FILENAME="main/partitions.csv"
+CONFIG_PARTITION_TABLE_FILENAME="main/partitions.csv"
