@@ -4,3 +4,6 @@
 [submodule "components-esp-sbfe"]
 	path = components-esp-sbfe
 	url = git@github.com:Kyklas/esp-sbfe.git
+[submodule "components-idf-utils"]
+	path = components-idf-utils
+	url = git@github.com:Kyklas/idf-utils.git

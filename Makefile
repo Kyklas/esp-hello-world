@@ -23,6 +23,7 @@ endif
 COMPONENT_DIRS := $(IDF_PATH)/components 
 COMPONENT_DIRS += $(CURDIR)/components $(CURDIR)/main
 COMPONENT_DIRS += $(CURDIR)/components-esp-sbfe
+COMPONENT_DIRS += $(CURDIR)/components-idf-utils
 
 include $(IDF_PATH)/make/project.mk
 
